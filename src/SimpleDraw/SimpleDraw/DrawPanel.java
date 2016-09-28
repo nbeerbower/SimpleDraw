@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,7 +50,7 @@ public class DrawPanel extends JPanel
     
     public DrawPanel(JLabel inMouseLabel, JTextField inLWField, JTextField inDLField)
     {
-        // drawoanel constructor
+        // drawpanel constructor
         shapeList = new LinkedList<Shape>();// make linked list to contain shapes on panel
         
         // set some default values for the current shape
@@ -63,7 +64,7 @@ public class DrawPanel extends JPanel
         curShapeLW = 5;
         curShapeDL = 10;
         
-        // set workable varibles to passed in pointers to gui elements
+        // set workable variables to passed in pointers to gui elements
         mouseLabel = inMouseLabel;
         lwField = inLWField;
         dlField = inDLField;
@@ -86,10 +87,9 @@ public class DrawPanel extends JPanel
         super.paintComponent(g);
         
         // draw all the previous shapes
-        // yes, I am aware this is a horrible way to access a LL
-        for(int i=shapeList.size()-1;i >= 0;i--)
-        {
-            shapeList.get(i).drawShape(g);
+        Iterator<Shape> i = shapeList.descendingIterator();
+        while (i.hasNext()) {
+        	i.next().drawShape(g);
         }
         
         // draw the current shape
@@ -138,7 +138,7 @@ public class DrawPanel extends JPanel
              * Finish drawing the shape.
              */
             
-            // finialize the coordinates
+            // finalize the coordinates
             curShapeObj.setX1(initX);
             curShapeObj.setY1(initY);
             curShapeObj.setX2(m.getX());
